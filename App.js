@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ClienteScreen, ProductoScreen, VisitaScreen } from './src/screens/pedido';
+import { ClienteScreen, FormProductoScreen, ProductoScreen, VisitaScreen } from './src/screens/pedido';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -21,6 +21,11 @@ const App = () => {
         <Stack.Screen
           name="productos"
           component={ProductoScreen}
+          options={{ headerShown: true, }}
+        />
+        <Stack.Screen
+          name="form"
+          component={FormProductoScreen}
           options={{ headerShown: true, }}
         />
       </Stack.Navigator>

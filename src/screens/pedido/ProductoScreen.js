@@ -1,7 +1,47 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, Image } from 'react-native'
-import { Chip, Searchbar } from 'react-native-paper';
-import ScreenWrapper from '../../components/ScreenWrapper';
+import { View, StyleSheet, Image, FlatList } from 'react-native'
+import { Card, Chip, Divider, Paragraph, Searchbar } from 'react-native-paper';
+
+
+
+const producto = [
+    {
+        id: '1',
+        title: 'First Item',
+    },
+    {
+        id: '2',
+        title: 'Second Item',
+    },
+    {
+        id: '3',
+        title: 'Third Item',
+    },
+    {
+        id: '4',
+        title: 'First Item',
+    },
+    {
+        id: '5',
+        title: 'Second Item',
+    },
+    {
+        id: '6',
+        title: 'Third Item',
+    },
+    {
+        id: '7',
+        title: 'Third Item',
+    },
+    {
+        id: '8',
+        title: 'Third Item',
+    },
+    {
+        id: '9',
+        title: 'Third Item',
+    },
+];
 
 export const ProductoScreen = ({ navigation }) => {
 
@@ -33,23 +73,45 @@ export const ProductoScreen = ({ navigation }) => {
                 <Chip
                     selected={visible3}
                     onPress={() => setVisible3(!visible3)}
-                     style={styles.chip}>
+                    style={styles.chip}>
                     INSUMOS DE PRODUCCION
                 </Chip>
             </View>
+            <Searchbar
+                placeholder="Buscar"
+                onChangeText={onChangeSearch}
+                value={searchQuery}
+                style={{ marginVertical: 5 }}
+            />
 
-            <ScreenWrapper>
-                <Searchbar
-                    placeholder="Buscar"
-                    onChangeText={onChangeSearch}
-                    value={searchQuery}
-                    style={{ marginVertical: 5 }}
+            <View style={{ flex: 1, marginHorizontal: 10, marginTop: 5 }}>
+                <FlatList
+                    data={producto}
+                    keyExtractor={(p) => p.id}
+                    renderItem={({ item }) => (
+                        <Card elevation={5} onPress={() => navigation.navigate('form')}>
+                            <Card.Content>
+                                <View style={styles.topContainer}>
+                                    <View style={{ justifyContent: 'space-between' }}>
+                                        <View>
+                                            <Paragraph>Precio:  545 Bs</Paragraph>
+                                            <Paragraph>Nombre: Tets</Paragraph>
+                                        </View>
+                                    </View>
+                                    <Image source={{
+                                        uri: 'https://media.vanityfair.com/photos/5ba12e6d42b9d16f4545aa19/3:2/w_1998,h_1332,c_limit/t-Avatar-The-Last-Airbender-Live-Action.jpg'
+                                    }} style={styles.avatar} />
+                                </View>
+
+                            </Card.Content>
+                        </Card>
+                    )}
+
+                    ItemSeparatorComponent={() => (
+                        <Divider style={{ marginVertical: 5 }} />
+                    )}
                 />
-            </ScreenWrapper>
-
-
-
-
+            </View>
         </View>
     )
 }
@@ -69,4 +131,15 @@ const styles = StyleSheet.create({
     chip: {
         margin: 4,
     },
+    topContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    avatar: {
+        height: 100,
+        width: 100,
+        borderRadius: 10
+    },
 });
+
+
