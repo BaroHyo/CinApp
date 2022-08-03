@@ -50,7 +50,7 @@ export const ClienteScreen = ({ navigation }) => {
     return (
         <View style={{ flex: 1, marginHorizontal: 10 }}>
             <Searchbar
-                placeholder="Search"
+                placeholder="Buscar"
                 onChangeText={onChangeSearch}
                 value={searchQuery}
                 style={{ marginVertical: 5 }}
