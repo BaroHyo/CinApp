@@ -11,10 +11,15 @@ export const useForm = (initState) => {
         });
     }
 
+    const setFormValue = (form) => {
+        setState(form);
+    }
+
     return {
         ...state,
         form: state,
         onChange,
+        setFormValue
     }
 
 }
