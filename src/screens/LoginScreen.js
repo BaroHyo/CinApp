@@ -1,29 +1,32 @@
 import React from 'react'
 import { Text, Divider } from 'react-native-paper'
 import Background from '../components/Background '
+import Button from '../components/Button'
+import Header from '../components/Header'
+import Logo from '../components/Logo'
 import TextInput from '../components/TextInput'
 
-export const LoginScreen = () => {
+export const LoginScreen = ({ navigation }) => {
   return (
     <Background>
+      <Logo />
+      <Header>CIN</Header>
       <Text variant='headlineSmall'>
-        Sign up to our newsletter!
+        Iniciar Sesion
       </Text>
       <Text variant='labelLarge'>
-        Get a monthly dose of fresh React Native Paper news straight to your mailbox. Just sign up to our newsletter and enjoy!
+        FJust sign up to our newsletter and enjoy!
       </Text>
       <Divider />
-
       <TextInput
-        label="Email"
-        returnKeyType="next"
-        autoCapitalize="none"
-        autoCompleteType="email"
+        label="Codigo Vendedor"
         textContentType="emailAddress"
-        keyboardType="email-address"
+        keyboardType="numeric"
       />
+      <Button mode="contained" onPress={() => console.log(1)}>
+        Ingresar
+      </Button>
 
     </Background>
   )
 }
-
