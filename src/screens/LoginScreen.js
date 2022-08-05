@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, Divider } from 'react-native-paper'
-import Background from '../components/Background '
+import Background from '../components/Background'
 import Button from '../components/Button'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
