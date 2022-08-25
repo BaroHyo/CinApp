@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Text, Divider } from 'react-native-paper'
 import Background from '../components/Background'
 import Button from '../components/Button'
 import Header from '../components/Header'
 import Logo from '../components/Logo'
 import TextInput from '../components/TextInput'
+import { AuthContext } from '../context/AuthContext'
+import { useForm } from '../hooks/useForm'
 
-export const LoginScreen = ({ navigation }) => {
+export const LoginScreen = () => {
+
+  const { signIn, errorMessage, removeError } = useContext( AuthContext );
+
+  const { codigo, onChange } = useForm({
+    codigo: ''
+  });
+
+  const onLogin = () => {
+    console.log(codigo);
+    signIn({ codigo});
+  }
+
   return (
     <Background>
       <Logo />
@@ -15,18 +29,18 @@ export const LoginScreen = ({ navigation }) => {
         Iniciar Sesion
       </Text>
       <Text variant='labelLarge'>
-        FJust sign up to our newsletter and enjoy!
+        Ingrese su codigo asignado
       </Text>
       <Divider />
       <TextInput
         label="Codigo Vendedor"
-        textContentType="emailAddress"
         keyboardType="numeric"
+        value={codigo}
+        onChangeText={(value) => onChange(value, 'codigo')}
       />
-      <Button mode="contained" onPress={() => console.log(1)}>
+      <Button mode="contained" onPress={onLogin}>
         Ingresar
       </Button>
-
     </Background>
   )
 }

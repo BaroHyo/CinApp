@@ -2,7 +2,7 @@ import React from 'react'
 import { AppRegistry, useColorScheme } from 'react-native';
 import App from './App';
 import { name as appName } from './app.json';
-import { MD3DarkTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 
 /*const darkTheme = {
   ...DefaultTheme,

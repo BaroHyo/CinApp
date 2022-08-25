@@ -7,7 +7,7 @@ const TextInput = ({ errorText, ...props }) => (
         <Input
             style={styles.input}
             underlineColor="transparent"
-            mode="outlined"
+            mode="outlined" 
             {...props}
         />
         {errorText ? <Text style={styles.error}>{errorText}</Text> : null}

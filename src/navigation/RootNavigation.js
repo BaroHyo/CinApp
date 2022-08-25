@@ -1,37 +1,47 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
+import React, { useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ClienteScreen, FormProductoScreen, ProductoScreen, VisitaScreen } from '../screens/pedido';
+import { HomeScreen } from '../screens/HomeScreen';
+import { LoginScreen } from '../screens/LoginScreen';
+import { AuthContext } from '../context/AuthContext';
+import ClientesScreen from '../screens/ClientesScreen';
+import { TabCliente } from "./TabCliente";
 
 
 const Stack = createNativeStackNavigator();
 
 const RootNavigation = () => {
+
+    const { status } = useContext(AuthContext);
+
     return (
-        <NavigationContainer>
-            <Stack.Navigator>
-                <Stack.Screen
-                    name="pedido"
-                    component={ClienteScreen}
-                    options={{ headerShown: true, }}
-                />
-                <Stack.Screen
-                    name="visita"
-                    component={VisitaScreen}
-                    options={{ headerShown: true, }}
-                />
-                <Stack.Screen
-                    name="productos"
-                    component={ProductoScreen}
-                    options={{ headerShown: true, }}
-                />
-                <Stack.Screen
-                    name="form"
-                    component={FormProductoScreen}
-                    options={{ headerShown: true, }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <Stack.Navigator>
+            {
+
+                (status !== 'authenticated')
+                    ?
+                    (<>
+                        <Stack.Screen name="LoginScreen"
+                            options={{
+                                headerShown: false
+                            }}
+                            component={LoginScreen} />
+                    </>) : (
+                        <>
+                            <Stack.Screen name="HomeScreen"
+                                options={{
+                                    headerShown: false
+                                }}
+                                component={HomeScreen} />
+                            <Stack.Screen name="TabCliente"
+                                options={{
+                                    headerShown: false
+                                }}
+                                component={TabCliente} />
+                        </>
+                    )
+
+            }
+        </Stack.Navigator>
     )
 }
 

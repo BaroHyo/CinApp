@@ -1,7 +1,8 @@
 import React from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
-import Background from "../components/Background";
 import { Card, Text } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import ImgBackground from "../components/ImgBackground";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -15,7 +16,7 @@ const menu = [
   {
     id: 2,
     nombre: "Clientes",
-    component: "",
+    component: "TabCliente",
     icon: "",
   },
   {
@@ -44,11 +45,18 @@ const menu = [
   },
 ];
 
-export const HomeScreen = () => {
+export const HomeScreen = ({ navigation }) => {
+
+  const { top } = useSafeAreaInsets();
 
   return (
-    <Background>
-      <View style={{ alignItems: "center" }}>
+    <ImgBackground>
+      <View style={{
+        alignItems: "center",
+        top: top + 8,
+        marginBottom: top + 8,
+        paddingBottom: 5,
+      }}>
         <FlatList
           data={menu}
           keyExtractor={(p) => p.id}
@@ -62,14 +70,14 @@ export const HomeScreen = () => {
               top: 20,
               marginBottom: 20,
               paddingBottom: 10,
-            }}>CIN </Text>
+            }}>CIN</Text>
           )}
           renderItem={({ item }) => (
             <Card style={{
               ...styles.container,
               width: windowWidth * 0.4,
             }}
-                  onPress={() => console.log(1)}>
+                  onPress={() => navigation.navigate(item.component)}>
               <Card.Title title={item.nombre} />
               <Card.Content style={{ flex: 1, flexDirection: "row-reverse" }}>
 
@@ -79,7 +87,7 @@ export const HomeScreen = () => {
           onEndReachedThreshold={0.4}
         />
       </View>
-    </Background>);
+    </ImgBackground>);
 };
 
 const styles = StyleSheet.create({
