@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Platform, Dimensions, StyleSheet, FlatList } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import ImgBackground from "../components/ImgBackground";
+import ImgBackground from "../../components/ImgBackground";
 import { Card, Paragraph, Searchbar, Text } from "react-native-paper";
-import { useClienteSearch } from "../hooks/useClienteSearch";
-import LoadingScreen from "./LoadingScreen";
+import { useClienteSearch } from "../../hooks/useClienteSearch";
+import LoadingScreen from "../LoadingScreen";
 
 const screenWidth = Dimensions.get("window").width;
 

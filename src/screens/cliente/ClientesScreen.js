@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { Card, Paragraph, Text } from "react-native-paper";
-import ImgBackground from "../components/ImgBackground";
-import { ClienteContext } from "../context/ClienteContext";
+import { Card, FAB, Paragraph, Text } from "react-native-paper";
+import ImgBackground from "../../components/ImgBackground";
+import { ClienteContext } from "../../context/ClienteContext";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const ClientesScreen = () => {
+export const ClientesScreen = ({ navigation }) => {
 
   const { clientes } = useContext(ClienteContext);
 
@@ -23,13 +23,19 @@ const ClientesScreen = () => {
               ...styles.globalMargin,
               top: top + 20,
               marginBottom: top + 20,
-              paddingBottom: 10
+              paddingBottom: 10,
             }}>Clientes</Text>
           )}
           renderItem={({ item }) => (
             <Card elevation={3}
                   style={{ marginVertical: 6 }}
-                  mode="contained">
+                  mode="contained"
+                  onPress={
+                    () => navigation.navigate("ClienteScreen", {
+                      item,
+                    })
+                  }
+            >
               <Card.Title title={item.prNombre} />
               <Card.Content>
                 <Paragraph>Codigo: {item.prCodigo}</Paragraph>
@@ -40,6 +46,11 @@ const ClientesScreen = () => {
               </Card.Content>
             </Card>
           )}
+        />
+        <FAB
+          icon="plus"
+          style={styles.fab}
+          onPress={() => console.log("Pressed")}
         />
       </View>
     </ImgBackground>
@@ -55,12 +66,16 @@ const styles = StyleSheet.create({
     borderBottomColor: "rgba(0,0,0,0.1)",
   },
   globalMargin: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   title: {
     fontSize: 35,
     fontWeight: "bold",
   },
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
+  },
 });
-
-export default ClientesScreen;

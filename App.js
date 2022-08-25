@@ -6,6 +6,7 @@ import { AuthProvider } from './src/context/AuthContext';
 import { ClienteProvider } from './src/context/ClienteContext';
 
 
+
 const AppState = ({ children }) => {
     return (
         <AuthProvider>
@@ -19,7 +20,8 @@ const AppState = ({ children }) => {
 
 
 const App = () => {
-    return (
+
+  return (
         <NavigationContainer>
             <SafeAreaProvider>
                 <AppState>
