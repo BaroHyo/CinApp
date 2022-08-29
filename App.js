@@ -6,16 +6,19 @@ import { AuthProvider } from "./src/context/AuthContext";
 import { ClienteProvider } from "./src/context/ClienteContext";
 import { ProductoProvider } from "./src/context/ProductoContext";
 import { useTheme } from "react-native-paper";
+import { PermissionsProvider } from "./src/context/PermissionsContext";
 
 
 const AppState = ({ children }) => {
   return (
     <AuthProvider>
-      <ClienteProvider>
-        <ProductoProvider>
-          {children}
-        </ProductoProvider>
-      </ClienteProvider>
+      <PermissionsProvider>
+        <ClienteProvider>
+          <ProductoProvider>
+            {children}
+          </ProductoProvider>
+        </ClienteProvider>
+      </PermissionsProvider>
     </AuthProvider>
   );
 };

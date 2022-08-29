@@ -33,14 +33,14 @@ const menu = [
   },
   {
     id: 5,
-    nombre: "Visistas",
+    nombre: "Visita",
     component: "",
     icon: "",
   },
   {
     id: 6,
     nombre: "Mapa Gps",
-    component: "",
+    component: "MapaScreen",
     icon: "",
   },
 ];
@@ -77,6 +77,7 @@ export const HomeScreen = ({ navigation }) => {
               ...styles.container,
               width: windowWidth * 0.4,
             }}
+                  mode="contained"
                   onPress={() => navigation.navigate(item.component)}>
               <Card.Title title={item.nombre} />
               <Card.Content style={{ flex: 1, flexDirection: "row-reverse" }}>

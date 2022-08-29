@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import ImgBackground from "../../components/ImgBackground";
 import { Appbar, Button, TextInput } from "react-native-paper";
 
-export const ProductoScreen = () => {
+export const ProductoScreen = ({ navigation }) => {
   return (
     <ImgBackground>
       <View style={{ flex: 1 }}>
@@ -31,10 +31,15 @@ export const ProductoScreen = () => {
             label="Precio Venta"
             style={styles.textInput}
           />
-          <Button icon="check-bold"
-                  mode="contained-tonal"
-                  onPress={() => console.log('Pressed')}>
+          <Button mode="contained-tonal"
+                  onPress={() => console.log("Pressed")}
+                  style={{ marginVertical: 5 }}>
             Guardar
+          </Button>
+          <Button  mode="elevated"
+                  onPress={() => navigation.goBack()}
+                  style={{ marginVertical: 5 }}>
+            Cancelar
           </Button>
         </ScrollView>
       </View>

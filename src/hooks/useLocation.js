@@ -19,7 +19,6 @@ export const useLocation = () => {
     const watchId = useRef();
     const isMounted = useRef(true);
 
-
     useEffect(() => {
         isMounted.current = true;
         return () => {
