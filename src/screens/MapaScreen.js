@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { Alert, Dimensions, Modal, View } from "react-native";
 import { Button, DataTable, Paragraph, Title } from "react-native-paper";
 import { Map } from "../components/Map";
+import { PedidoContext } from "../context/PedidoContext";
+import { Marker } from "react-native-maps";
 
 const windoHeight = Dimensions.get("screen").height;
 
@@ -18,32 +20,46 @@ export const MapaScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalData, setModalData] = useState();
 
+  const { pedido } = useContext(PedidoContext);
+
+
   // const { distribucion, loadDetalle, detallePedido } = useContext(DistribucionContext);
 
-  const modalContenido = (distribucion: Distribucion) => {
+  /*const modalContenido = (distribucion: Distribucion) => {
     setModalVisible(true);
     setModalData(distribucion);
-    loadDetalle(distribucion.diId.toString());
-  };
+  };*/
 
-  const createTwoButtonAlert = () =>
-    Alert.alert(
-      "Mensaje",
-      "Esta seguro de entregar el pedido",
-      [
-        {
-          text: "Cancelar",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Si", onPress: () => setModalVisible(!modalVisible) },
-      ],
-    );
+  const createTwoButtonAlert = () => Alert.alert(
+    "Mensaje",
+    "Esta seguro de entregar el pedido",
+    [
+      {
+        text: "Cancelar",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel",
+      },
+      { text: "Si", onPress: () => setModalVisible(!modalVisible) },
+    ],
+  );
 
   return (
     <View style={{ flex: 1 }}>
       <Map navigation={navigation}>
-
+        {
+          pedido.map((marker, index) => (
+            <Marker
+              key={index}
+              coordinate={{
+                latitude: marker.peLat,
+                longitude: marker.peLon,
+              }}
+              title={marker.peDetalle}
+              description={marker.peFechaVe}
+              onPress={() => console.log(marker)}
+            />
+          ))
+        }
       </Map>
     </View>
   );

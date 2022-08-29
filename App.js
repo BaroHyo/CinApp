@@ -7,17 +7,20 @@ import { ClienteProvider } from "./src/context/ClienteContext";
 import { ProductoProvider } from "./src/context/ProductoContext";
 import { useTheme } from "react-native-paper";
 import { PermissionsProvider } from "./src/context/PermissionsContext";
+import { PedidoProvider } from "./src/context/PedidoContext";
 
 
 const AppState = ({ children }) => {
   return (
     <AuthProvider>
       <PermissionsProvider>
-        <ClienteProvider>
-          <ProductoProvider>
-            {children}
-          </ProductoProvider>
-        </ClienteProvider>
+        <PedidoProvider>
+          <ClienteProvider>
+            <ProductoProvider>
+              {children}
+            </ProductoProvider>
+          </ClienteProvider>
+        </PedidoProvider>
       </PermissionsProvider>
     </AuthProvider>
   );

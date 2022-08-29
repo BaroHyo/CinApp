@@ -78,7 +78,6 @@ export const Map = ({ children, navigation, showsUserLocation = true }) => {
           position: "absolute",
           right: 20,
           bottom: 20,
-          backgroundColor: "#311b92",
         }}
         small
         icon="close"
