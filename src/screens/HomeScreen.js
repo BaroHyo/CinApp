@@ -10,7 +10,7 @@ const menu = [
   {
     id: 1,
     nombre: "Productos",
-    component: "",
+    component: "TabProducto",
     icon: "",
   },
   {
