@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Dimensions, FlatList, StyleSheet, View } from "react-native";
-import { Card, Text } from "react-native-paper";
+import { Card, FAB, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ImgBackground from "../components/ImgBackground";
+import { AuthContext } from "../context/AuthContext";
 
 const windowWidth = Dimensions.get("window").width;
 
@@ -10,7 +11,7 @@ const menu = [
   {
     id: 1,
     nombre: "Productos",
-    component: "TabProducto",
+    component: "ProductoStack",
     icon: "",
   },
   {
@@ -45,33 +46,45 @@ const menu = [
   },
 ];
 
-export const HomeScreen = ({ navigation }) => {
+
+const TituloHeader = ({ veNombre }) => {
 
   const { top } = useSafeAreaInsets();
 
   return (
+    <View style={{ flex: 1, flexDirection: "row" }}>
+      <Text style={{
+        ...styles.title,
+        ...styles.globalMargin,
+        top: top + 20,
+        marginBottom: top + 20,
+        paddingBottom: 10,
+      }}>CIN</Text>
+      <Text style={{
+        ...styles.titleUser,
+        ...styles.globalMargin,
+        top: top + 20,
+        marginBottom: top + 20,
+        paddingBottom: 10,
+      }}>{veNombre}</Text>
+    </View>
+  );
+};
+
+export const HomeScreen = ({ navigation }) => {
+
+  const { user, logOut } = useContext(AuthContext);
+
+  return (
     <ImgBackground>
-      <View style={{
-        alignItems: "center",
-        top: top + 8,
-        marginBottom: top + 8,
-        paddingBottom: 5,
-      }}>
+      <View style={{ alignItems: "center" }}>
         <FlatList
           data={menu}
           keyExtractor={(p) => p.id}
           showsVerticalScrollIndicator={false}
           numColumns={2}
           // Header
-          ListHeaderComponent={(
-            <Text style={{
-              ...styles.title,
-              ...styles.globalMargin,
-              top: 20,
-              marginBottom: 20,
-              paddingBottom: 10,
-            }}>CIN</Text>
-          )}
+          ListHeaderComponent={TituloHeader(user)}
           renderItem={({ item }) => (
             <Card style={{
               ...styles.container,
@@ -88,20 +101,17 @@ export const HomeScreen = ({ navigation }) => {
           onEndReachedThreshold={0.4}
         />
       </View>
+      <FAB
+        icon="location-exit"
+        style={styles.fab}
+        onPress={logOut}
+      />
     </ImgBackground>);
 };
 
 const styles = StyleSheet.create({
   globalMargin: {
     marginHorizontal: 20,
-  },
-  pokebolaBG: {
-    position: "absolute",
-    width: 300,
-    height: 300,
-    top: -100,
-    right: -100,
-    opacity: 0.2,
   },
   title: {
     fontSize: 35,
@@ -113,18 +123,14 @@ const styles = StyleSheet.create({
     width: 170,
     marginBottom: 25,
   },
-  name: {
-    fontSize: 20,
+  titleUser: {
+    fontSize: 15,
     fontWeight: "bold",
-    top: 20,
-    left: 10,
   },
-  content: {
-    backgroundColor: "white",
-    padding: 22,
-    justifyContent: "center",
-    alignItems: "center",
-    borderTopRightRadius: 17,
-    borderTopLeftRadius: 17,
+  fab: {
+    position: "absolute",
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });

@@ -1,36 +1,27 @@
 import React, { useContext } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
-import { Card, FAB, Paragraph, Text } from "react-native-paper";
+import { Appbar, Card, FAB, Paragraph, useTheme } from "react-native-paper";
 import ImgBackground from "../../components/ImgBackground";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ProductoContext } from "../../context/ProductoContext";
-import LoadingScreen from "../LoadingScreen";
+
 
 export const ProductosScreen = ({ navigation }) => {
 
-  const { isLoading, producto } = useContext(ProductoContext);
 
-  const { top } = useSafeAreaInsets();
-
-  /* if (!isLoading) {
-     return <LoadingScreen />;
-   }*/
+  const { producto } = useContext(ProductoContext);
+  // const theme = useTheme();
 
   return (
     <ImgBackground>
+      <Appbar.Header mode="small">
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="PRODUCTOS" />
+        <Appbar.Action icon="magnify" onPress={() => navigation.navigate('SearchProductoScreen')} />
+      </Appbar.Header>
       <View style={{ flex: 1, marginHorizontal: 10 }}>
         <FlatList
           data={producto}
           keyExtractor={(p) => p.idProducto.toString()}
-          ListHeaderComponent={(
-            <Text style={{
-              ...styles.title,
-              ...styles.globalMargin,
-              top: top + 20,
-              marginBottom: top + 20,
-              paddingBottom: 10,
-            }}>Productos</Text>
-          )}
           renderItem={({ item }) => (
             <Card elevation={3}
                   style={{ marginVertical: 6 }}
@@ -39,8 +30,7 @@ export const ProductosScreen = ({ navigation }) => {
                     () => navigation.navigate("ProductoScreen", {
                       item,
                     })
-                  }
-            >
+                  }>
               <Card.Title title={item.nombre} />
               <Card.Content>
                 <Paragraph>Codigo: {item.codigo}</Paragraph>
@@ -55,7 +45,7 @@ export const ProductosScreen = ({ navigation }) => {
           icon="plus"
           style={styles.fab}
           onPress={
-            () => navigation.navigate("ProductoScreen")
+            () => navigation.navigate("ModalProducto")
           }
         />
       </View>
@@ -85,3 +75,15 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
+
+/*
+  ListHeaderComponent={(
+            <Text style={{
+              ...styles.title,
+              ...styles.globalMargin,
+              top: top + 20,
+              marginBottom: top + 20,
+              paddingBottom: 10,
+            }}>Productos</Text>
+          )}
+ **/

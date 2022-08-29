@@ -1,11 +1,10 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ProductosScreen } from "../../screens/producto";
+import { ProductoScreen, ProductosScreen, SearchScreen } from "../screens/producto";
 
 const Stack = createNativeStackNavigator();
 
-export const Tab1 = () => {
-
+export const ProductoStack = () => {
   return (
     <Stack.Navigator
       screenOptions={{
@@ -14,6 +13,12 @@ export const Tab1 = () => {
       <Stack.Screen
         name="ProductosScreen"
         component={ProductosScreen} />
+      <Stack.Screen
+        name="ProductoScreen"
+        component={ProductoScreen} />
+      <Stack.Screen
+        name="SearchProductoScreen"
+        component={SearchScreen} />
     </Stack.Navigator>
   );
 };

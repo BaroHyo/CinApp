@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import CinApi from "../apis/CinApi";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const ClienteContext = createContext({});
 
@@ -13,7 +14,9 @@ export const ClienteProvider = ({ children }) => {
 
   const loadCLiente = async () => {
     try {
-      const resp = await CinApi.get(`/Clientes/ListaClientes/2905`);
+      const codigo = await AsyncStorage.getItem("codigo");
+
+      const resp = await CinApi.get(`/Clientes/ListaClientes/${codigo}`);
       setClientes([...resp.data.response]);
 
     } catch (error) {

@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { Alert, Keyboard } from "react-native";
 import { Text, Divider } from "react-native-paper";
 import Background from "../components/Background";
 import Button from "../components/Button";
@@ -16,7 +17,18 @@ export const LoginScreen = () => {
     codigo: "",
   });
 
+  useEffect(() => {
+    if (errorMessage.length === 0) return;
+
+    Alert.alert("Login incorrecto", errorMessage, [{
+      text: "Ok",
+      onPress: removeError,
+    }]);
+
+  }, [errorMessage]);
+
   const onLogin = () => {
+    Keyboard.dismiss();
     signIn({ codigo });
   };
 

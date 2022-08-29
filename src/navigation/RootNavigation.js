@@ -5,21 +5,20 @@ import { LoginScreen } from "../screens/LoginScreen";
 import { AuthContext } from "../context/AuthContext";
 import { TabCliente } from "./TabCliente";
 import { TabProducto } from "./TabProducto";
-import { ProductoScreen } from "../screens/producto";
+import { ModalProducto, ProductoScreen } from "../screens/producto";
 import { PermissionsContext } from "../context/PermissionsContext";
 import LoadingScreen from "../screens/LoadingScreen";
 import { PermissionsScreen } from "../screens/PermisoScreen";
 import { MapaScreen } from "../screens/MapaScreen";
+import { ProductoStack } from "./ProductoStack";
 
 
 const Stack = createNativeStackNavigator();
 
 
-const RootNavigation = () => {
+const NavigationHome = () => {
 
   const { permission } = useContext(PermissionsContext);
-
-  const { status } = useContext(AuthContext);
 
   if (permission.locationStatus === "unavailable") {
     return <LoadingScreen />;
@@ -29,62 +28,72 @@ const RootNavigation = () => {
     <Stack.Navigator>
       {
         (permission.locationStatus === "granted")
-          ?
-          (<>
-            {
-              (status !== "authenticated") ? (
-                <Stack.Screen
-                  name="LoginScreen"
-                  options={{
-                    headerShown: false,
-                  }}
-                  component={LoginScreen} />
-              ) : (
-                <>
-                  <Stack.Group>
-                    <Stack.Screen
-                      name="HomeScreen"
-                      options={{
-                        headerShown: false,
-                      }}
-                      component={HomeScreen} />
-                    <Stack.Screen
-                      name="TabProducto"
-                      options={{
-                        headerShown: false,
-                      }}
-                      component={TabProducto} />
-                    <Stack.Screen
-                      name="TabCliente"
-                      options={{
-                        headerShown: false,
-                      }}
-                      component={TabCliente} />
-                    <Stack.Screen
-                      name="MapaScreen"
-                      options={{
-                        headerShown: false,
-                      }}
-                      component={MapaScreen} />
-                  </Stack.Group>
-                  <Stack.Group screenOptions={{ presentation: "modal" }}>
-                    <Stack.Screen
-                      name="ProductoScreen"
-                      options={{
-                        headerShown: false,
-                      }}
-                      component={ProductoScreen} />
-                  </Stack.Group>
-                </>
-              )
-            }
-
-          </>)
-          : (
+          ? (
+            <>
+            </>
+          ) : (
             <Stack.Screen name="PermissionsScreen"
                           component={PermissionsScreen}
                           options={{ headerShown: false }} />
           )
+      }
+    </Stack.Navigator>
+  );
+};
+
+
+const RootNavigation = () => {
+
+  const { status } = useContext(AuthContext);
+
+  return (
+    <Stack.Navigator>
+      {
+        (status !== "authenticated") ? (
+          <Stack.Screen
+            name="LoginScreen"
+            options={{
+              headerShown: false,
+            }}
+            component={LoginScreen} />
+        ) : (
+          <>
+            <Stack.Group>
+              <Stack.Screen
+                name="HomeScreen"
+                options={{
+                  headerShown: false,
+                }}
+                component={HomeScreen} />
+              <Stack.Screen
+                name="ProductoStack"
+                options={{
+                  headerShown: false,
+                }}
+                component={ProductoStack} />
+              <Stack.Screen
+                name="TabCliente"
+                options={{
+                  headerShown: false,
+                }}
+                component={TabCliente} />
+              <Stack.Screen
+                name="MapaScreen"
+                options={{
+                  headerShown: false,
+                }}
+                component={MapaScreen} />
+            </Stack.Group>
+            <Stack.Group screenOptions={{ presentation: "modal" }}>
+              <Stack.Screen
+                name="ModalProducto"
+                options={{
+                  headerShown: false,
+                }}
+                component={ModalProducto} />
+            </Stack.Group>
+          </>
+        )
       }
     </Stack.Navigator>
   );

@@ -1,14 +1,15 @@
-import React from 'react'
-import { View, Text } from 'react-native';
+import React from "react";
+import { View } from "react-native";
+import ImgBackground from "../../components/ImgBackground";
 
 export const SearchScreen = () => {
   return (
-    <View style={{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-    }}>
-      <Text style={{ color: 'black' }}>SearchScreen</Text>
-    </View>
-  )
-}
+    <ImgBackground>
+      <View style={{
+        flex: 1,
+      }}>
+
+      </View>
+    </ImgBackground>
+  );
+};
