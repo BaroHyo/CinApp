@@ -23,7 +23,7 @@ const menu = [
   {
     id: 3,
     nombre: "Pedidos",
-    component: "",
+    component: "PedidoStack",
     icon: "",
   },
   {

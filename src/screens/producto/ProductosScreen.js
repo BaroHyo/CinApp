@@ -16,7 +16,7 @@ export const ProductosScreen = ({ navigation }) => {
       <Appbar.Header mode="small">
         <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="PRODUCTOS" />
-        <Appbar.Action icon="magnify" onPress={() => navigation.navigate('SearchProductoScreen')} />
+        <Appbar.Action icon="magnify" onPress={() => navigation.navigate("SearchProductoScreen")} />
       </Appbar.Header>
       <View style={{ flex: 1, marginHorizontal: 10 }}>
         <FlatList
@@ -75,15 +75,3 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
-
-/*
-  ListHeaderComponent={(
-            <Text style={{
-              ...styles.title,
-              ...styles.globalMargin,
-              top: top + 20,
-              marginBottom: top + 20,
-              paddingBottom: 10,
-            }}>Productos</Text>
-          )}
- **/

@@ -1,6 +1,5 @@
-export { FormProductoScreen } from "./FormProductoScreen"
-export { ProductoScreen } from "./ProductoScreen"
-export { ResumenScreen } from "./ResumenScreen"
-export { VisitaScreen } from "./VisitaScreen"
-export { ClienteScreen } from "./ClienteScreen"
-
+export { FormPedidoScreen } from "./FormPedidoScreen";
+export { VisitaScreen } from "./VisitaScreen";
+export { ResumenScreen } from "./ResumenScreen";
+export { ProductoScreen } from "./ProductoScreen";
+export { PedidoScreen } from "./PedidoScreen";

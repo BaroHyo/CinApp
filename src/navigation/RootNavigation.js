@@ -11,6 +11,8 @@ import LoadingScreen from "../screens/LoadingScreen";
 import { PermissionsScreen } from "../screens/PermisoScreen";
 import { MapaScreen } from "../screens/MapaScreen";
 import { ProductoStack } from "./ProductoStack";
+import { PedidoScreen } from "../screens/pedido";
+import { PedidoStack } from "./PedidoStack";
 
 
 const Stack = createNativeStackNavigator();
@@ -77,6 +79,12 @@ const RootNavigation = () => {
                   headerShown: false,
                 }}
                 component={TabCliente} />
+              <Stack.Screen
+                name="PedidoStack"
+                options={{
+                  headerShown: false,
+                }}
+                component={PedidoStack} />
               <Stack.Screen
                 name="MapaScreen"
                 options={{
