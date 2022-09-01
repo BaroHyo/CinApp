@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Appbar, Button, Card, List, Paragraph, Title } from "react-native-paper";
 import { Contador } from "../../components/Contador";
+import { financial } from "../../util/commo";
 
 
 export const FormPedidoScreen = ({ navigation, route }) => {
 
   const { item, nombre, codigo } = route.params;
-  console.log(item);
-
-  //const [producto, setProducto] = useState();
 
 
   return (
@@ -18,11 +16,7 @@ export const FormPedidoScreen = ({ navigation, route }) => {
         <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="Formulario" />
       </Appbar.Header>
-      <View style={{
-        flex: 1,
-        marginHorizontal: 10,
-        marginVertical: 8,
-      }}>
+      <View style={styles.container}>
         <View style={{
           marginHorizontal: 10,
           marginVertical: 8,
@@ -30,7 +24,7 @@ export const FormPedidoScreen = ({ navigation, route }) => {
           <Card>
             <Card.Content>
               <Title>{item.nombre}</Title>
-              <Paragraph>Precio: {item.precioventa} Bs.</Paragraph>
+              <Paragraph>Precio: {financial(item.precioventa)} Bs.</Paragraph>
               <Paragraph>Unidad Medida: {item.unidadMe} Bs.</Paragraph>
             </Card.Content>
           </Card>
@@ -86,4 +80,10 @@ export const FormPedidoScreen = ({ navigation, route }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginHorizontal: 10,
+    marginVertical: 8,
+  },
+});

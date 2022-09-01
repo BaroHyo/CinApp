@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList, StyleSheet, View } from "react-native";
+import { Alert, FlatList, StyleSheet, View } from "react-native";
 import { Card, FAB, Paragraph, Text } from "react-native-paper";
 import ImgBackground from "../../components/ImgBackground";
 import { ClienteContext } from "../../context/ClienteContext";
@@ -7,7 +7,9 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export const ClientesScreen = ({ navigation }) => {
 
-  const { clientes } = useContext(ClienteContext);
+  const { clientes, error } = useContext(ClienteContext);
+
+
 
   const { top } = useSafeAreaInsets();
 
