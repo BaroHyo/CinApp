@@ -1,51 +1,12 @@
 import React, { useContext } from "react";
-import { Dimensions, FlatList, StyleSheet, View } from "react-native";
-import { Card, FAB, Text } from "react-native-paper";
+import { Dimensions, FlatList, Image, StyleSheet, View } from "react-native";
+import { Card, FAB, Text, useTheme } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import ImgBackground from "../components/ImgBackground";
 import { AuthContext } from "../context/AuthContext";
+import { menu } from "../util/data";
 
 const windowWidth = Dimensions.get("window").width;
-
-const menu = [
-  {
-    id: 1,
-    nombre: "Productos",
-    component: "ProductoStack",
-    icon: "",
-  },
-  {
-    id: 2,
-    nombre: "Clientes",
-    component: "TabCliente",
-    icon: "",
-  },
-  {
-    id: 3,
-    nombre: "Pedidos",
-    component: "PedidoStack",
-    icon: "",
-  },
-  {
-    id: 4,
-    nombre: "Registrados",
-    component: "",
-    icon: "",
-  },
-  {
-    id: 5,
-    nombre: "Visita",
-    component: "",
-    icon: "",
-  },
-  {
-    id: 6,
-    nombre: "Mapa Gps",
-    component: "MapaScreen",
-    icon: "",
-  },
-];
-
 
 const TituloHeader = ({ veNombre }) => {
 
@@ -75,6 +36,8 @@ export const HomeScreen = ({ navigation }) => {
 
   const { user, logOut } = useContext(AuthContext);
 
+  const { colors } = useTheme();
+
   return (
     <ImgBackground>
       <View style={{ alignItems: "center" }}>
@@ -83,18 +46,15 @@ export const HomeScreen = ({ navigation }) => {
           keyExtractor={(p) => p.id}
           showsVerticalScrollIndicator={false}
           numColumns={2}
-          // Header
           ListHeaderComponent={TituloHeader(user)}
           renderItem={({ item }) => (
-            <Card style={{
-              ...styles.container,
-              width: windowWidth * 0.4,
-            }}
-                  mode="contained"
+            <Card style={{ ...styles.container, width: windowWidth * 0.4, }}
+                  elevation={5}
+                  mode="elevated"
                   onPress={() => navigation.navigate(item.component)}>
               <Card.Title title={item.nombre} />
-              <Card.Content style={{ flex: 1, flexDirection: "row-reverse" }}>
-
+              <Card.Content style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <Image source={item.img} style={styles.image} />
               </Card.Content>
             </Card>
           )}
@@ -103,8 +63,9 @@ export const HomeScreen = ({ navigation }) => {
       </View>
       <FAB
         icon="location-exit"
-        style={styles.fab}
+        style={{ ...styles.fab, backgroundColor: colors.primary }}
         onPress={logOut}
+        variant="tertiary"
       />
     </ImgBackground>);
 };
@@ -132,5 +93,9 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
+  },
+  image: {
+    width: 70,
+    height: 70,
   },
 });

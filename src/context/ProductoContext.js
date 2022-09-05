@@ -6,6 +6,7 @@ export const ProductoContext = createContext({});
 export const ProductoProvider = ({ children }) => {
 
   const [isLoading, setIsLoading] = useState(true);
+
   const [producto, setProducto] = useState([]);
 
 
@@ -35,24 +36,27 @@ export const ProductoProvider = ({ children }) => {
 
     }
   };
-  const newProducto = () => {
+  const addProducto = async (categoria, codigo, nombre, unidadMe, precioventa, precioVenta2) => {
     try {
-
-    } catch (e) {
-      console.error(e.response);
-    }
-  };
-
-  const updateProducto = () => {
-    try {
-
-    } catch (e) {
-      console.error(e.response);
-    }
-  };
-  const deleteProducto = () => {
-    try {
-
+      const resp = await CinApi.post(`/Producto/Guardar`, {
+        idProducto: 0,
+        categoria,
+        codigo,
+        nombre,
+        unidadMe,
+        precioventa,
+        precioVenta2,
+      });
+      console.log(resp.data);
+      setProducto([...producto, {
+        idProducto: 0,
+        categoria,
+        codigo,
+        nombre,
+        unidadMe,
+        precioventa,
+        precioVenta2,
+      }]);
     } catch (e) {
       console.error(e.response);
     }
@@ -65,6 +69,7 @@ export const ProductoProvider = ({ children }) => {
         isLoading,
         producto,
         loadProducto,
+        addProducto,
       }}>
       {children}
     </ProductoContext.Provider>

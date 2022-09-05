@@ -1,44 +1,43 @@
 import React, { useContext } from "react";
-import { Alert, FlatList, StyleSheet, View } from "react-native";
-import { Card, FAB, Paragraph, Text } from "react-native-paper";
+import { FlatList, StyleSheet, View } from "react-native";
+import { Appbar, Card, FAB, Paragraph, useTheme } from "react-native-paper";
 import ImgBackground from "../../components/ImgBackground";
 import { ClienteContext } from "../../context/ClienteContext";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
 
 export const ClientesScreen = ({ navigation }) => {
 
-  const { clientes, error } = useContext(ClienteContext);
+  const { clientes } = useContext(ClienteContext);
 
+  const { colors } = useTheme();
 
-
-  const { top } = useSafeAreaInsets();
 
   return (
     <ImgBackground>
-      <View style={{ flex: 1, marginHorizontal: 10 }}>
+      <Appbar.Header mode="small">
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="CLIENTES" />
+      </Appbar.Header>
+      <View style={styles.container}>
         <FlatList
           data={clientes}
           keyExtractor={(p) => p.prId.toString()}
-          ListHeaderComponent={(
-            <Text style={{
-              ...styles.title,
-              ...styles.globalMargin,
-              top: top + 20,
-              marginBottom: top + 20,
-              paddingBottom: 10,
-            }}>Clientes</Text>
-          )}
           renderItem={({ item }) => (
-            <Card elevation={3}
-                  style={{ marginVertical: 6 }}
-                  mode="contained"
-                  onPress={
-                    () => navigation.navigate("ClienteScreen", {
-                      item,
-                    })
-                  }
-            >
-              <Card.Title title={item.prNombre} />
+            <Card elevation={5}
+                  style={{
+                    marginVertical: 6,
+                    borderLeftColor: colors.primary,
+                    borderLeftWidth: 5,
+                  }}
+                  mode="elevated"
+                  onPress={() => navigation.navigate("ClienteScreen", { item })}>
+              <Card.Title title={item.prNombre} left={({ size }) => (
+                <MaterialCommunityIcons
+                  name={item.prLat === 0 ? "map-marker-remove-variant" : "map-marker-radius"}
+                  color={item.prLat === 0 ? colors.error : colors.secondary}
+                  size={size} />
+              )} />
               <Card.Content>
                 <Paragraph>Codigo: {item.prCodigo}</Paragraph>
                 <Paragraph>Direccion: {item.prDireccion}</Paragraph>
@@ -51,7 +50,7 @@ export const ClientesScreen = ({ navigation }) => {
         />
         <FAB
           icon="plus"
-          style={styles.fab}
+          style={{ ...styles.fab, backgroundColor: colors.primary }}
           onPress={() => console.log("Pressed")}
         />
       </View>
@@ -59,13 +58,9 @@ export const ClientesScreen = ({ navigation }) => {
   );
 };
 const styles = StyleSheet.create({
-  productName: {
-    fontSize: 20,
-  },
-  itemSeparator: {
-    borderBottomWidth: 2,
-    marginVertical: 5,
-    borderBottomColor: "rgba(0,0,0,0.1)",
+  container: {
+    flex: 1,
+    marginHorizontal: 10,
   },
   globalMargin: {
     marginHorizontal: 20,

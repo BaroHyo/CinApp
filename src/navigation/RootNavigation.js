@@ -99,6 +99,12 @@ const RootNavigation = () => {
                   headerShown: false,
                 }}
                 component={ModalProducto} />
+              <Stack.Screen
+                name="ModalMapa"
+                options={{
+                  headerShown: false,
+                }}
+                component={ModalProducto} />
             </Stack.Group>
           </>
         )

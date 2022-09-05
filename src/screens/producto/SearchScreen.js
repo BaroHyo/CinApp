@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Dimensions, FlatList, Platform, StyleSheet, View } from "react-native";
 import ImgBackground from "../../components/ImgBackground";
-import { Appbar, Card, Paragraph, Searchbar, Text } from "react-native-paper";
+import { Appbar, Card, Paragraph, Searchbar, Text, useTheme } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useProductoSearch } from "../../hooks/useProductoSearch";
 import LoadingScreen from "../LoadingScreen";
+import { financial } from "../../util/commo";
 
 const screenWidth = Dimensions.get("window").width;
 
 export const SearchScreen = ({ navigation }) => {
 
   const { top } = useSafeAreaInsets();
+
+  const { colors } = useTheme();
 
   const { isFetching, simpleProductoList } = useProductoSearch();
   const [productoFiltered, setProductoFiltered] = useState([]);
@@ -70,20 +73,20 @@ export const SearchScreen = ({ navigation }) => {
             )}
 
             renderItem={({ item }) => (
-              <Card elevation={3}
-                    style={{ marginVertical: 6 }}
-                    mode="contained"
-                    onPress={
-                      () => navigation.navigate("ProductoScreen", {
-                        item,
-                      })
-                    }>
+              <Card elevation={5}
+                    style={{
+                      marginVertical: 6,
+                      borderLeftColor: colors.primary,
+                      borderLeftWidth: 5,
+                    }}
+                    mode="elevated"
+                    onPress={() => navigation.navigate("ProductoScreen", { item })}>
                 <Card.Title title={item.nombre} />
                 <Card.Content>
                   <Paragraph>Codigo: {item.codigo}</Paragraph>
                   <Paragraph>Categotia: {item.categoria}</Paragraph>
                   <Paragraph>Unidad: {item.unidadMe}</Paragraph>
-                  <Paragraph>Precio Venta: {item.precioventa}</Paragraph>
+                  <Paragraph>Precio Venta: {financial(item.precioventa)}</Paragraph>
                 </Card.Content>
               </Card>
             )}

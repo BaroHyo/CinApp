@@ -1,46 +1,90 @@
 import React from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import ImgBackground from "../../components/ImgBackground";
-import { Appbar, Button, TextInput } from "react-native-paper";
+import { Appbar, Button, TextInput, useTheme } from "react-native-paper";
+import { useForm } from "../../hooks/useForm";
+import { financial } from "../../util/commo";
 
-export const ProductoScreen = ({ navigation }) => {
+export const ProductoScreen = ({ navigation,route }) => {
+
+  const { colors } = useTheme();
+
+  const { item } = route.params;
+
+  const {
+    categoria,
+    codigo,
+    nombre,
+    unidadMe,
+    precioventa,
+    onChange,
+  } = useForm(item);
+
+
   return (
     <ImgBackground>
       <View style={{ flex: 1 }}>
-        <Appbar.Header elevated>
-          <Appbar.Content title="Nuevo Producto" />
+        <Appbar.Header>
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
+          <Appbar.Content title="Producto" />
         </Appbar.Header>
         <ScrollView style={styles.container}>
           <TextInput
             label="Nombre"
-            style={styles.textInput}
+            mode="outlined"
+            underlineColor="transparent"
+            value={nombre}
+            style={{
+              ...styles.textInput,
+              backgroundColor: colors.surface,
+            }}
+            onChangeText={(value) => onChange(value, "nombre")}
           />
           <TextInput
             label="Codigo"
-            style={styles.textInput}
+            mode="outlined"
+            underlineColor="transparent"
+            value={codigo}
+            style={{
+              ...styles.textInput,
+              backgroundColor: colors.surface,
+            }}
+            onChangeText={(value) => onChange(value, "codigo")}
           />
           <TextInput
             label="Categoria"
-            style={styles.textInput}
+            mode="outlined"
+            underlineColor="transparent"
+            value={categoria}
+            style={{
+              ...styles.textInput,
+              backgroundColor: colors.surface,
+            }}
+            onChangeText={(value) => onChange(value, "categoria")}
           />
           <TextInput
             label="Unidad Medida"
-            style={styles.textInput}
+            mode="outlined"
+            underlineColor="transparent"
+            value={unidadMe}
+            style={{
+              ...styles.textInput,
+              backgroundColor: colors.surface,
+            }}
+            onChangeText={(value) => onChange(value, "unidadMe")}
           />
           <TextInput
             label="Precio Venta"
-            style={styles.textInput}
+            mode="outlined"
+            keyboardType="numeric"
+            underlineColor="transparent"
+            value={financial(precioventa)}
+            style={{
+              ...styles.textInput,
+              backgroundColor: colors.surface,
+            }}
+            onChangeText={(value) => onChange(value, "precioventa")}
           />
-          <Button mode="contained-tonal"
-                  onPress={() => console.log("Pressed")}
-                  style={{ marginVertical: 5 }}>
-            Guardar
-          </Button>
-          <Button  mode="elevated"
-                  onPress={() => navigation.goBack()}
-                  style={{ marginVertical: 5 }}>
-            Cancelar
-          </Button>
         </ScrollView>
       </View>
     </ImgBackground>
@@ -55,10 +99,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   textInput: {
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    height: 45,
-    marginTop: 5,
-    marginBottom: 15,
+    marginVertical: 5,
   },
 });
