@@ -1,17 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
 import { Appbar, Card, FAB, Paragraph, useTheme } from "react-native-paper";
 import ImgBackground from "../../components/ImgBackground";
 import { ClienteContext } from "../../context/ClienteContext";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { AuthContext } from "../../context/AuthContext";
+import LoadingScreen from "../LoadingScreen";
 
 
 export const ClientesScreen = ({ navigation }) => {
 
-  const { clientes } = useContext(ClienteContext);
+  const { codigo } = useContext(AuthContext);
+  const { clientes, loadCLiente, isLoading } = useContext(ClienteContext);
 
   const { colors } = useTheme();
 
+  useEffect(() => {
+    loadCLiente(codigo);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
 
   return (
     <ImgBackground>
@@ -32,7 +42,7 @@ export const ClientesScreen = ({ navigation }) => {
                   }}
                   mode="elevated"
                   onPress={() => navigation.navigate("ClienteScreen", { item })}>
-              <Card.Title title={item.prNombre} left={({ size }) => (
+              <Card.Title title={item.prNombre} right={({ size }) => (
                 <MaterialCommunityIcons
                   name={item.prLat === 0 ? "map-marker-remove-variant" : "map-marker-radius"}
                   color={item.prLat === 0 ? colors.error : colors.secondary}
@@ -41,17 +51,17 @@ export const ClientesScreen = ({ navigation }) => {
               <Card.Content>
                 <Paragraph>Codigo: {item.prCodigo}</Paragraph>
                 <Paragraph>Direccion: {item.prDireccion}</Paragraph>
-                <Paragraph>Celular: {item.prCelular}</Paragraph>
-                <Paragraph>Razon Social: {item.prNombrefa}</Paragraph>
-                <Paragraph>Nit: {item.prNitfa}</Paragraph>
               </Card.Content>
             </Card>
           )}
         />
         <FAB
           icon="plus"
-          style={{ ...styles.fab, backgroundColor: colors.primary }}
-          onPress={() => console.log("Pressed")}
+          style={{
+            ...styles.fab,
+            backgroundColor: colors.primary,
+          }}
+          onPress={() => navigation.navigate('FormModal')}
         />
       </View>
     </ImgBackground>

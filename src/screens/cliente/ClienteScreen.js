@@ -35,7 +35,6 @@ export const ClienteScreen = ({ navigation, route }) => {
 
   const { colors } = useTheme();
 
- 
   return (
     <ImgBackground>
       <Appbar.Header>
@@ -110,7 +109,7 @@ export const ClienteScreen = ({ navigation, route }) => {
         />
         <Card>
           <View style={{ flex: 1 }}>
-            <MapMin styles={{height: 200}}
+            <MapMin styles={{ height: 200 }}
                     latitude={prLat}
                     longitude={prLon} />
           </View>
@@ -127,7 +126,10 @@ export const ClienteScreen = ({ navigation, route }) => {
         <Button mode="contained"
                 onPress={() => console.log(1)}
                 disabled={isEdit}
-                style={{ marginVertical: 5, backgroundColor: colors.secondary }}>
+                style={{
+                  marginVertical: 5,
+                  backgroundColor: colors.secondary,
+                }}>
           Guardar
         </Button>
       </ScrollView>

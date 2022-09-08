@@ -5,8 +5,7 @@ import { check, openSettings, PERMISSIONS, request } from "react-native-permissi
 
 export const PermissionsContext = createContext({});
 
-
-export const permissionInitState = {
+const permissionInitState = {
   locationStatus: "unavailable",
 };
 

@@ -1,26 +1,46 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import CinApi from "../apis/CinApi";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Alert } from "react-native";
 
 export const ClienteContext = createContext({});
 
 export const ClienteProvider = ({ children }) => {
 
+
   const [clientes, setClientes] = useState([]);
 
-  useEffect(() => {
-    loadCLiente();
-  }, []);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const loadCLiente = async () => {
+  const loadCLiente = async (codigo) => {
     try {
-      const codigo = await AsyncStorage.getItem("codigo");
-
+      setIsLoading(true);
       const resp = await CinApi.get(`/Clientes/ListaClientes/${codigo}`);
       setClientes([...resp.data.response]);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert("Error", JSON.stringify(error));
+    }
+  };
+
+  const addCliente = async (body) => {
+    try {
+      console.log(body);
+      const resp = await CinApi.post(`/Clientes/GuardarCliente`, body);
+      console.log(resp.data);
+    } catch (error) {
+      Alert.alert("Error", JSON.stringify(error));
+    }
+  };
+
+  const updateCliente = async (body) => {
+    try {
+      const resp = await CinApi.put(`/Clientes/UpdateCliente`, body);
+      console.log(resp.data);
 
     } catch (error) {
-      console.error(error.response);
+      Alert.alert("Error", JSON.stringify(error));
+
     }
   };
 
@@ -29,6 +49,9 @@ export const ClienteProvider = ({ children }) => {
       value={{
         clientes,
         loadCLiente,
+        isLoading,
+        addCliente,
+        updateCliente,
       }}
     >
       {children}

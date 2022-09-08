@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, authInicialState);
 
   useEffect(() => {
-    checkToken();
+     checkToken();
   }, []);
 
   const checkToken = async () => {
@@ -51,6 +51,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = async ({ codigo }) => {
     try {
       const { data } = await CinApi.get(`/Vendedor/ObtenerVendedor/${codigo}`);
+
       if (!data.response) {
         dispatch({
           type: "addError",
@@ -64,7 +65,8 @@ export const AuthProvider = ({ children }) => {
             user: data.response,
           },
         });
-        await AsyncStorage.setItem("codigo", codigo);
+
+        await AsyncStorage.setItem("codigo", data.response.veId.toString());
       }
     } catch (e) {
       dispatch({

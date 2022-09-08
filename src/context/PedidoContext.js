@@ -7,9 +7,9 @@ export const PedidoProvider = ({ children }) => {
 
   const [pedido, setPedido] = useState([]);
 
-  useEffect(() => {
-    loadPedido();
-  }, []);
+  // useEffect(() => {
+  //   loadPedido();
+  // }, []);
 
   const loadPedido = async () => {
     try {

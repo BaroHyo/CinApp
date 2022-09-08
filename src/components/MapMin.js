@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useLocation } from "../hooks/useLocation";
 import LoadingScreen from "../screens/LoadingScreen";
 import MapView, { Marker } from "react-native-maps";
+import { Alert } from "react-native";
 
 export const MapMin = ({ styles, latitude, longitude }) => {
 
@@ -16,6 +17,7 @@ export const MapMin = ({ styles, latitude, longitude }) => {
   const mapViewRef = useRef();
 
   const followingRef = useRef(true);
+
 
   useEffect(() => {
     followUserLocation();
@@ -44,7 +46,7 @@ export const MapMin = ({ styles, latitude, longitude }) => {
         style={styles}
         rotateEnabled={false}
         scrollEnabled={false}
-         initialRegion={{
+        initialRegion={{
           latitude: latitude,//initialPosition.latitude,
           longitude: longitude, //initialPosition.longitude,
           latitudeDelta: 1 / 300,
