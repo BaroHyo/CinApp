@@ -1,73 +1,47 @@
 import React, { useEffect, useState, useRef } from "react";
 import { StyleSheet, View } from "react-native";
-import { useLocation } from "../../hooks/useLocation";
-import LoadingScreen from "../LoadingScreen";
 import MapView, { Marker } from "react-native-maps";
 import { Appbar, Button, Card, Snackbar, Text, useTheme } from "react-native-paper";
 
-export const ModalMapa = ({ navigation, route }) => {
+export const ModalMapaEdit = ({ navigation, route }) => {
 
-  const { setPrLat, setPrLon } = route.params;
-
-  const {
-    hasLocation,
-    initialPosition,
-    followUserLocation,
-    userLocation,
-    stopFollowUserLocation,
-  } = useLocation();
+  const { prLat, prLon, setLatitud, setLongitud } = route.params;
 
   const { colors } = useTheme();
 
-  const [region, setRegion] = useState({});
+  const [region, setRegion] = useState({
+    latitude: prLat,
+    longitude: prLon,
+    latitudeDelta: 1 / 400,
+    longitudeDelta: 2 / 400,
+  });
+
   const [visible, setVisible] = useState(false);
 
   const mapViewRef = useRef();
-
   const followingRef = useRef(true);
 
   useEffect(() => {
-    followUserLocation();
-    return () => {
-      stopFollowUserLocation();
-    };
-  }, []);
-
-  useEffect(() => {
     if (!followingRef.current) return;
-    const { latitude, longitude } = userLocation;
     mapViewRef.current?.animateCamera({
-      center: { latitude, longitude },
+      center: { prLat, prLon },
     });
-  }, [userLocation]);
+  }, [prLat, prLon]);
 
-
-  useEffect(() => {
-    if (hasLocation) {
-      setRegion({
-        latitude: initialPosition.latitude,
-        longitude: initialPosition.longitude,
-        latitudeDelta: 1 / 400,
-        longitudeDelta: 2 / 400,
-      });
-    }
-  }, [hasLocation]);
   const onToggleSnackBar = () => setVisible(!visible);
 
   const onDismissSnackBar = () => setVisible(false);
 
   const onSave = () => {
-    setPrLat(region.latitude);
-    setPrLon(region.longitude);
+    const { latitude, longitude } = region;
+    setLatitud(latitude);
+    setLongitud(longitude);
     onToggleSnackBar();
-    navigation.goBack();
   };
 
-
-  if (!hasLocation) {
-    return <LoadingScreen />;
-  }
-
+  const onRegion = (region) => {
+    setRegion(region);
+  };
 
   return (
     <View style={styles.container}>
@@ -82,19 +56,18 @@ export const ModalMapa = ({ navigation, route }) => {
           showsUserLocation={false}
           showsMyLocationButton={false}
           initialRegion={{
-            latitude: initialPosition.latitude,
-            longitude: initialPosition.longitude,
+            latitude: prLat,
+            longitude: prLon,
             latitudeDelta: 1 / 400,
             longitudeDelta: 2 / 400,
           }}
           onTouchStart={() => followingRef.current = false}
-          onRegionChange={(region) => setRegion(region)}>
+          onRegionChange={(region) => onRegion(region)}>
           <Marker
             coordinate={{
               latitude: region.latitude,
               longitude: region.longitude,
             }}
-            onPress={(e) => console.log(e)}
           />
         </MapView>
         <Card style={styles.viewFooter}>

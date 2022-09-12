@@ -12,6 +12,7 @@ import { MapaScreen } from "../screens/MapaScreen";
 import { ProductoStack } from "./ProductoStack";
 import { PedidoStack } from "./PedidoStack";
 import { FormModal, ModalMapa } from "../screens/cliente";
+import { ModalMapaEdit } from "../screens/cliente/ModalMapaEdit";
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,12 @@ const NavigationHome = () => {
                     headerShown: false,
                   }}
                   component={FormModal} />
+                <Stack.Screen
+                  name="ModalMapaEdit"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={ModalMapaEdit} />
               </Stack.Group>
             </>
           ) :

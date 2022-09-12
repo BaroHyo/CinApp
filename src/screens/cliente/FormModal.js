@@ -8,9 +8,10 @@ import { AuthContext } from "../../context/AuthContext";
 
 export const FormModal = ({ navigation }) => {
 
-
-  const { addCliente } = useContext(ClienteContext);
   const { codigo } = useContext(AuthContext);
+
+  const { addCliente, loadCLiente } = useContext(ClienteContext);
+
   const [prLat, setPrLat] = useState(0);
   const [prLon, setPrLon] = useState(0);
 
@@ -78,12 +79,10 @@ export const FormModal = ({ navigation }) => {
       prTiponego,
       prObs,
     });
+    loadCLiente(codigo);
+    navigation.goBack();
   };
 
-  /* const onUbicacion = (Lat, Lon) => {
-     onChange(Lat, "prLat");
-     onChange(Lon, "prLon");
-   };*/
 
   return (
     <ImgBackground>

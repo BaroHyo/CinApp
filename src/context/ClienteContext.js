@@ -39,8 +39,8 @@ export const ClienteProvider = ({ children }) => {
       console.log(resp.data);
 
     } catch (error) {
-      Alert.alert("Error", JSON.stringify(error));
-
+      Alert.alert("Error", JSON.stringify(error.response.data.mensaje));
+      console.error(error.response.data.mensaje);
     }
   };
 
