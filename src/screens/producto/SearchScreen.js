@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Dimensions, FlatList, Platform, StyleSheet, View } from "react-native";
-import ImgBackground from "../../components/ImgBackground";
-import { Appbar, Card, Paragraph, Searchbar, Text, useTheme } from "react-native-paper";
+import { Dimensions, FlatList, Image, Platform, StyleSheet, View } from "react-native";
+import { Appbar, Card, Paragraph, Searchbar, Text, Title, useTheme } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useProductoSearch } from "../../hooks/useProductoSearch";
 import LoadingScreen from "../LoadingScreen";
@@ -36,33 +35,33 @@ export const SearchScreen = ({ navigation }) => {
   }
 
   return (
-    <ImgBackground>
+    <View style={{
+      flex: 1,
+    }}>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="PRODUCTO" />
+      </Appbar.Header>
       <View style={{
         flex: 1,
+        marginHorizontal: 5,
       }}>
-        <Appbar.Header>
-          <Appbar.BackAction onPress={() => navigation.goBack()} />
-        </Appbar.Header>
-        <View style={{
-          flex: 1,
-          marginHorizontal: 5,
-        }}>
-          <Searchbar
-            placeholder="Buscar"
-            onChangeText={(value) => setTerm(value)}
-            value={term}
-            style={{
-              position: "absolute",
-              zIndex: 999,
-              width: screenWidth - 15,
-              top: (Platform.OS === "ios") ? top : top + 10,
-            }}
-          />
+        <Searchbar
+          placeholder="Buscar"
+          onChangeText={(value) => setTerm(value)}
+          value={term}
+          elevation={1}
+          style={{
+            position: "absolute",
+            zIndex: 999,
+            width: screenWidth - 15,
+            top: (Platform.OS === "ios") ? top : top + 8,
+          }} />
+        <View style={styles.container}>
           <FlatList
             data={productoFiltered}
             keyExtractor={(p) => p.idProducto.toString()}
             showsVerticalScrollIndicator={false}
-            // Header
             ListHeaderComponent={(
               <Text style={{
                 ...styles.title,
@@ -76,41 +75,41 @@ export const SearchScreen = ({ navigation }) => {
               <Card elevation={5}
                     style={{
                       marginVertical: 6,
-                      borderLeftColor: colors.primary,
                       borderLeftWidth: 5,
+                      borderLeftColor: colors.primary,
                     }}
                     mode="elevated"
                     onPress={() => navigation.navigate("ProductoScreen", { item })}>
-                <Card.Title title={item.nombre} />
-                <Card.Content>
-                  <Paragraph>Codigo: {item.codigo}</Paragraph>
-                  <Paragraph>Categotia: {item.categoria}</Paragraph>
-                  <Paragraph>Unidad: {item.unidadMe}</Paragraph>
-                  <Paragraph>Precio Venta: {financial(item.precioventa)}</Paragraph>
+                <Card.Content style={styles.rowView}>
+                  <View style={{ justifyContent: "space-between" }}>
+                    <Title>{item.nombre}</Title>
+                    <Paragraph>Codigo: {item.codigo}</Paragraph>
+                    <Paragraph>Precio Venta: {financial(item.precioventa)}</Paragraph>
+                  </View>
+                  <Image source={{
+                    uri: "https://media.vanityfair.com/photos/5ba12e6d42b9d16f4545aa19/3:2/w_1998,h_1332,c_limit/t-Avatar-The-Last-Airbender-Live-Action.jpg",
+                  }} style={styles.imagen} />
                 </Card.Content>
               </Card>
             )}
           />
         </View>
       </View>
-    </ImgBackground>
+    </View>
   );
 };
-
 const styles = StyleSheet.create({
-  productName: {
-    fontSize: 20,
+  container: {
+    flex: 1,
+    marginHorizontal: 15,
   },
-  itemSeparator: {
-    borderBottomWidth: 2,
-    marginVertical: 5,
-    borderBottomColor: "rgba(0,0,0,0.1)",
+  rowView: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  globalMargin: {
-    marginHorizontal: 20,
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: "bold",
+  imagen: {
+    height: 80,
+    width: 80,
+    borderRadius: 10,
   },
 });

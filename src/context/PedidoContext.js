@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import CinApi from "../apis/CinApi";
 
 export const PedidoContext = createContext({});
@@ -7,24 +7,29 @@ export const PedidoProvider = ({ children }) => {
 
   const [pedido, setPedido] = useState([]);
 
-  // useEffect(() => {
-  //   loadPedido();
-  // }, []);
+  const [cantidad, setCantidad] = useState(0);
 
-  const loadPedido = async () => {
+  const [detalle, setDetalle] = useState([]);
+
+
+  const loadPedido = async (codigo, fecha) => {
     try {
-      const resp = await CinApi.get(`/Pedido/ListaPedidos?idVende=2905&fecha=2022-08-29`);
-
+      console.log(fecha);
+      const resp = await CinApi.get(`/Pedido/ListaPedidos?idVende=${codigo}&fecha=${fecha}`);
       setPedido([...resp.data.response]);
-
     } catch (error) {
-      console.error(error.response);
+      console.log(error.response);
     }
   };
 
+
   return (
     <PedidoContext.Provider value={{
+      cantidad,
+      setCantidad,
       pedido,
+      detalle,
+      setDetalle,
       loadPedido,
     }}>
       {children}

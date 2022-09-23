@@ -1,7 +1,9 @@
 import React, { useContext, useState } from "react";
 import { View, StyleSheet, Image, FlatList } from "react-native";
-import { Appbar, Card, Divider, Paragraph, Title } from "react-native-paper";
+import { Appbar, Badge, Card, Divider, Paragraph, Title } from "react-native-paper";
 import { ProductoContext } from "../../context/ProductoContext";
+import { financial } from "../../util/commo";
+import { PedidoContext } from "../../context/PedidoContext";
 
 
 export const ProductoScreen = ({ navigation, route }) => {
@@ -11,18 +13,22 @@ export const ProductoScreen = ({ navigation, route }) => {
 
   const { producto } = useContext(ProductoContext);
 
-  function financial(x) {
-    return Number.parseFloat(x).toFixed(2);
-  }
+  const { cantidad } = useContext(PedidoContext);
 
   return (
     <View style={{ flex: 1 }}>
       <Appbar.Header>
         <Appbar.BackAction onPress={() => navigation.goBack()} />
         <Appbar.Content title="Productos" />
-        <Appbar.Action icon="cart-outline" onPress={() => navigation.navigate("ResumenScreen")} />
-        <Appbar.Action icon="magnify" onPress={() => {
-        }} />
+        <View>
+          <Badge size={16}
+                 style={styles.badge}
+                 visible={cantidad > 0}>
+            {cantidad}
+          </Badge>
+          <Appbar.Action icon="cart-outline" onPress={() => navigation.navigate("ResumenScreen")} />
+        </View>
+        {/*<Appbar.Action icon="magnify" onPress={() => {   }} />*/}
       </Appbar.Header>
       <View style={styles.container}>
         <FlatList
@@ -45,9 +51,7 @@ export const ProductoScreen = ({ navigation, route }) => {
                       <Paragraph>Precio: {financial(item.precioventa)} Bs.</Paragraph>
                     </View>
                   </View>
-                  <Image source={{
-                    uri: "https://media.vanityfair.com/photos/5ba12e6d42b9d16f4545aa19/3:2/w_1998,h_1332,c_limit/t-Avatar-The-Last-Airbender-Live-Action.jpg",
-                  }} style={styles.avatar} />
+               
                 </View>
               </Card.Content>
             </Card>
@@ -85,5 +89,10 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     borderRadius: 10,
+  },
+  badge: {
+    position: "absolute",
+    top: 5,
+    right: 5,
   },
 });

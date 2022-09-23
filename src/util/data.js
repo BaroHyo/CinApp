@@ -26,7 +26,7 @@ export const menu = [
   {
     id: 5,
     nombre: "VISITA",
-    component: "",
+    component: "VisitasScreen",
     img: require("../assets/home/Visita.png"),
   },
   {

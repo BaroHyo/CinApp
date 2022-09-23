@@ -13,7 +13,10 @@ const TituloHeader = ({ veNombre }) => {
   const { top } = useSafeAreaInsets();
 
   return (
-    <View style={{ flex: 1, flexDirection: "row" }}>
+    <View style={{
+      flex: 1,
+      flexDirection: "row",
+    }}>
       <Text style={{
         ...styles.title,
         ...styles.globalMargin,
@@ -38,8 +41,10 @@ export const HomeScreen = ({ navigation }) => {
 
   const { colors } = useTheme();
 
+  //  console.log(user);
+
   return (
-    <ImgBackground>
+    <View style={{ flex: 1 }}>
       <View style={{ alignItems: "center" }}>
         <FlatList
           data={menu}
@@ -48,7 +53,7 @@ export const HomeScreen = ({ navigation }) => {
           numColumns={2}
           ListHeaderComponent={TituloHeader(user)}
           renderItem={({ item }) => (
-            <Card style={{ ...styles.container, width: windowWidth * 0.4, }}
+            <Card style={{ ...styles.container, width: windowWidth * 0.4 }}
                   elevation={5}
                   mode="elevated"
                   onPress={() => navigation.navigate(item.component)}>
@@ -63,11 +68,14 @@ export const HomeScreen = ({ navigation }) => {
       </View>
       <FAB
         icon="location-exit"
-        style={{ ...styles.fab, backgroundColor: colors.primary }}
+        style={{
+          ...styles.fab,
+          backgroundColor: colors.primary,
+        }}
         onPress={logOut}
         variant="tertiary"
       />
-    </ImgBackground>);
+    </View>);
 };
 
 const styles = StyleSheet.create({

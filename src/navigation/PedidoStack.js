@@ -1,6 +1,12 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { FormPedidoScreen, PedidoScreen, ProductoScreen, ResumenScreen, VisitaScreen } from "../screens/pedido";
+import {
+  FormPedidoScreen,
+  ModalFormPedido,
+  ProductoScreen,
+  ResumenScreen,
+  VisitaScreen,
+} from "../screens/pedido";
 
 const Stack = createNativeStackNavigator();
 
@@ -11,8 +17,8 @@ export const PedidoStack = () => {
         headerShown: false,
       }}>
       <Stack.Screen
-        name="PedidoScreen"
-        component={PedidoScreen} />
+        name="ModalFormPedido"
+        component={ModalFormPedido} />
       <Stack.Screen
         name="FormPedidoScreen"
         component={FormPedidoScreen} />

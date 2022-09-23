@@ -4,7 +4,6 @@ import { HomeScreen } from "../screens/HomeScreen";
 import { LoginScreen } from "../screens/LoginScreen";
 import { AuthContext } from "../context/AuthContext";
 import { TabCliente } from "./TabCliente";
-import { ModalProducto } from "../screens/producto";
 import { PermissionsContext } from "../context/PermissionsContext";
 import LoadingScreen from "../screens/LoadingScreen";
 import { PermissionsScreen } from "../screens/PermisoScreen";
@@ -13,13 +12,14 @@ import { ProductoStack } from "./ProductoStack";
 import { PedidoStack } from "./PedidoStack";
 import { FormModal, ModalMapa } from "../screens/cliente";
 import { ModalMapaEdit } from "../screens/cliente/ModalMapaEdit";
+import { PedidoScreen, VisitaScreen } from "../screens/pedido";
 
 const Stack = createNativeStackNavigator();
 
 const NavigationHome = () => {
   const { permission } = useContext(PermissionsContext);
 
-   if (permission.locationStatus === "unavailable") {
+  if (permission.locationStatus === "unavailable") {
     return <LoadingScreen />;
   }
   return (
@@ -52,21 +52,21 @@ const NavigationHome = () => {
                   options={{
                     headerShown: false,
                   }}
-                  component={PedidoStack} />
+                  component={PedidoScreen} />
                 <Stack.Screen
                   name="MapaScreen"
                   options={{
                     headerShown: false,
                   }}
                   component={MapaScreen} />
-              </Stack.Group>
-              <Stack.Group screenOptions={{ presentation: "modal" }}>
                 <Stack.Screen
-                  name="ModalProducto"
+                  name="VisitasScreen"
                   options={{
                     headerShown: false,
                   }}
-                  component={ModalProducto} />
+                  component={VisitaScreen} />
+              </Stack.Group>
+              <Stack.Group screenOptions={{ presentation: "modal" }}>
                 <Stack.Screen
                   name="ModalMapa"
                   options={{
@@ -85,6 +85,12 @@ const NavigationHome = () => {
                     headerShown: false,
                   }}
                   component={ModalMapaEdit} />
+                <Stack.Screen
+                  name="ModalFormPedido"
+                  options={{
+                    headerShown: false,
+                  }}
+                  component={PedidoStack} />
               </Stack.Group>
             </>
           ) :
@@ -104,7 +110,7 @@ const NavigationHome = () => {
 const RootNavigation = () => {
 
   const { status } = useContext(AuthContext);
-
+  // console.log(status);
   return (
     <Stack.Navigator>
       {

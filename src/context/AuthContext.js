@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, authInicialState);
 
   useEffect(() => {
-     checkToken();
+    checkToken();
   }, []);
 
   const checkToken = async () => {
@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const { data } = await CinApi.get(`/Vendedor/ObtenerVendedor/${codigo}`);
-
+      //console.log(data.response);
       if (!data.response) {
         return dispatch({ type: "notAuthenticated" });
       }
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
   const signIn = async ({ codigo }) => {
     try {
       const { data } = await CinApi.get(`/Vendedor/ObtenerVendedor/${codigo}`);
-
+      //rconsole.log(data);
       if (!data.response) {
         dispatch({
           type: "addError",

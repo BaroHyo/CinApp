@@ -26,7 +26,7 @@ export const ProductoScreen = ({ navigation,route }) => {
       <View style={{ flex: 1 }}>
         <Appbar.Header>
           <Appbar.BackAction onPress={() => navigation.goBack()} />
-          <Appbar.Content title="Producto" />
+          <Appbar.Content title="PRODCUTO" />
         </Appbar.Header>
         <ScrollView style={styles.container}>
           <TextInput
@@ -34,6 +34,7 @@ export const ProductoScreen = ({ navigation,route }) => {
             mode="outlined"
             underlineColor="transparent"
             value={nombre}
+            disabled
             style={{
               ...styles.textInput,
               backgroundColor: colors.surface,
@@ -45,6 +46,7 @@ export const ProductoScreen = ({ navigation,route }) => {
             mode="outlined"
             underlineColor="transparent"
             value={codigo}
+            disabled
             style={{
               ...styles.textInput,
               backgroundColor: colors.surface,
@@ -56,6 +58,7 @@ export const ProductoScreen = ({ navigation,route }) => {
             mode="outlined"
             underlineColor="transparent"
             value={categoria}
+            disabled
             style={{
               ...styles.textInput,
               backgroundColor: colors.surface,
@@ -67,6 +70,7 @@ export const ProductoScreen = ({ navigation,route }) => {
             mode="outlined"
             underlineColor="transparent"
             value={unidadMe}
+            disabled
             style={{
               ...styles.textInput,
               backgroundColor: colors.surface,
@@ -79,6 +83,7 @@ export const ProductoScreen = ({ navigation,route }) => {
             keyboardType="numeric"
             underlineColor="transparent"
             value={financial(precioventa)}
+            disabled
             style={{
               ...styles.textInput,
               backgroundColor: colors.surface,

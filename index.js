@@ -1,18 +1,9 @@
 import React from "react";
-import { AppRegistry, useColorScheme } from "react-native";
+import { AppRegistry } from "react-native";
 import App from "./App";
 import { name as appName } from "./app.json";
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
-/*const darkTheme = {
-  ...DefaultTheme,
-  roundness: 2,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: "#1A1A1A",
-    accent: "#FAFAFA"
-  },
-}; */
 
 const lightTheme = {
   ...DefaultTheme,
@@ -28,8 +19,6 @@ const lightTheme = {
 
 
 export default function Main() {
-  //  const scheme = useColorScheme();
-
   return (
     <PaperProvider theme={lightTheme}>
       <App />

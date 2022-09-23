@@ -1,26 +1,27 @@
 import React from "react";
-import { LogBox } from 'react-native';
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigation from "./src/navigation/RootNavigation";
-import { useTheme } from "react-native-paper";
 import { AuthProvider, ClienteProvider, PedidoProvider, PermissionsProvider, ProductoProvider } from "./src/context";
+import { LogBox } from "react-native";
 
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
+
+
 const AppState = ({ children }) => {
   return (
     <AuthProvider>
       <PermissionsProvider>
-        <PedidoProvider>
-          <ClienteProvider>
-            <ProductoProvider>
+        <ClienteProvider>
+          <ProductoProvider>
+            <PedidoProvider>
               {children}
-            </ProductoProvider>
-          </ClienteProvider>
-        </PedidoProvider>
+            </PedidoProvider>
+          </ProductoProvider>
+        </ClienteProvider>
       </PermissionsProvider>
     </AuthProvider>
   );
@@ -28,10 +29,10 @@ const AppState = ({ children }) => {
 
 
 const App = () => {
-  const theme = useTheme();
   return (
     <SafeAreaProvider>
       <NavigationContainer>
+
         <AppState>
           <RootNavigation />
         </AppState>
